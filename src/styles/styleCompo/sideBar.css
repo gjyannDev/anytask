@@ -1,0 +1,18 @@
+#side__bar {
+  width: 20.75rem;
+  background-color: var(--sidebar-bg-clr);
+  height: 100vh;
+}
+
+.upper__container {
+  border: 1px solid red;
+}
+
+.sidebar__container {
+  border: 1px solid blue;
+  height: inherit;
+}
+
+.links__container {
+  display: flex;
+}

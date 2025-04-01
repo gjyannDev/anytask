@@ -3,7 +3,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 
 :root {
-  
+
   --clr-dark: #1a1a19;
   --clr-light: #fdfaf6;
   --clr-primary: #99bc85;
@@ -13,7 +13,7 @@
   --bg-clr: var(--clr-light);
   --text-primary-clr: var(--clr-dark);
   --text-secondary-clr: var(--clr-accent);
-  --sidebar-bg-clr: rgba(228, 239, 231, 0.3);
+  --sidebar-bg-clr: rgba(228, 239, 231, 0.4);
   --sidebar-nav-hover-clr: rgba(228, 239, 231, 0.7);
   
   /* sizes */
