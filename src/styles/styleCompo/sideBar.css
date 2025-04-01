@@ -5,14 +5,38 @@
 }
 
 .upper__container {
-  border: 1px solid red;
+  /* border: 1px solid red; */
+}
+
+.middle__container {
+  /* border: 1px solid yellow; */
 }
 
 .sidebar__container {
-  border: 1px solid blue;
-  height: inherit;
+  height: 20.5rem;
+  padding-top: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
 .links__container {
   display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 0;
+}
+
+.side__bar-lower {
+  padding-left: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 268px;
+}
+
+.add__projects-container {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
 }
