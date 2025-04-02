@@ -87,3 +87,8 @@ li {
   list-style: none;
   cursor: pointer;
 }
+
+.add__project-btn {
+  display: flex;
+  gap: 0.5rem;
+}
