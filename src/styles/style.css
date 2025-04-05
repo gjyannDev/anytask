@@ -92,3 +92,7 @@ li {
   display: flex;
   gap: 0.5rem;
 }
+
+.main__container {
+  display: flex;
+}
