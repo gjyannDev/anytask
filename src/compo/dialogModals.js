@@ -13,10 +13,13 @@ function inputWithLabel(labelName, inputType, name) {
 
   inputLabel.textContent = labelName;
 
+  //Appending the content to the DOM
   inputContainer.appendChild(inputLabel);
-  inputType !== "textarea"
-    ? inputContainer.appendChild(input)
-    : inputContainer.appendChild(textarea);
+  if (inputType === "textarea") {
+    inputContainer.appendChild(textarea)
+  } else {
+    inputContainer.appendChild(input)
+  }
 
   return inputContainer;
 }
@@ -25,28 +28,25 @@ export default function DialogModal(modalLabel) {
   const modal_container = document.createElement("div");
   const content_container = document.createElement("div");
   const modal_label_container = document.createElement("div");
-  const grouped_button_container = document.createElement("div");
   const modal_label = document.createElement("h2");
-  const add_button = document.createElement("button");
-  const cancel_button = document.createElement("button");
 
   modal_container.setAttribute("class", "modal__container");
   content_container.setAttribute("class", "content__container");
   modal_label_container.setAttribute("class", "label__container");
-  grouped_button_container.setAttribute("class", "button__container");
   modal_label.setAttribute("class", "modal__label");
-  add_button.setAttribute("class", "add__btn btn");
-  cancel_button.setAttribute("class", "cancel__btn btn");
 
   modal_label.textContent = modalLabel;
-  add_button.textContent = "Add";
-  cancel_button.textContent = "Cancel";
 
+  //Appending the content
   modal_label_container.appendChild(modal_label);
-  content_container.appendChild(inputWithLabel("Title", "text", "title"));
-  content_container.appendChild(
-    inputWithLabel("Description", "text", "description")
-  );
+  if (modalLabel === "Add Project") {
+    content_container.appendChild(inputWithLabel("Title", "text", "title"));
+    content_container.appendChild(
+      inputWithLabel("Description", "textarea", "description")
+    );
+  } else if (modalLabel === "Edit Task") {
+    content_container.appendChild(inputWithLabel("Title", "text", "title"));
+  }
   modal_container.appendChild(modal_label_container);
   modal_container.appendChild(content_container);
 

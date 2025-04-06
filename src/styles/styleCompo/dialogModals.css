@@ -1,0 +1,24 @@
+.dialog__container {
+  height: 100%;
+  margin: auto 0;
+}
+
+.contents__container {
+  width: 100%;
+}
+
+.dialog__sub-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: inherit;
+}
+
+.form__container {
+  background-color: var(--modal-bg-clr);
+  padding: 2rem;
+  border: var(--modal-border);
+  box-shadow: var(--modal-box-shadow);
+  border-radius: 1rem;
+}
