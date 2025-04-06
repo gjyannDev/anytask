@@ -12,7 +12,8 @@ let side_bar_lower = document.querySelector(".side__bar-lower");
 let add_project_btn = document.querySelector(".add__project-btn");
 let dialog_container = document.querySelector(".dialog__container");
 let dialog_form = document.querySelector("#dialog__form");
-let close_dialog_btn = document.querySelector(".close__dialog");
+let cancel__btn = document.querySelector(".cancel__btn");
+
 
 side_bar.insertBefore(SideBar(), side_bar_lower);
 
@@ -22,6 +23,6 @@ add_project_btn.addEventListener("click", () => {
   dialog_container.classList.remove("hidden");
 });
 
-close_dialog_btn.addEventListener("click", () => {
+cancel__btn.addEventListener("click", () => {
   dialog_container.classList.add("hidden");
 });
