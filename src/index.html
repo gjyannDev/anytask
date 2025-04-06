@@ -23,7 +23,18 @@
       </div>
     </aside>
     <main class="contents__container">
-      <div class="dialog__container"></div>
+      <div class="dialog__container hidden">
+        <div class="dialog__sub-container">
+          <div class="form__container">
+            <span class="close__dialog">&times;</span>
+            <form id="dialog__form"></form>
+            <div class="grouped__btn">
+              <button type="button" class="cancel__btn btn">Cancel</button>
+              <button type="submit" class="add__btn btn">Add</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
   </div>
 </body>
