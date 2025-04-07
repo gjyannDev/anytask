@@ -5,7 +5,7 @@ import completedIcon from "/src/assets/icons/bx-check-square.svg";
 import trashIcon from "/src/assets/icons/bx-trash.svg";
 import projectIcon from "/src/assets/icons/circle.svg";
 
-import { getProject } from "./addProject";
+import { getProject } from "./project";
 
 export function sidebarNavLink(navText, navImage) {
   const links = document.createElement("li");
@@ -40,7 +40,11 @@ function disProjSidebar() {
     const project_icon = document.createElement("img");
     const project_list_name = document.createElement("p");
 
-    list_name_container.setAttribute("class", "list__name-container");
+    list_name_container.setAttribute(
+      "class",
+      "list__name-container proj__name"
+    );
+    list_name_container.setAttribute("data-id", project.id);
     project_list_name.setAttribute("class", "project__list-name");
     project_icon.setAttribute("class", "proj__icon");
 

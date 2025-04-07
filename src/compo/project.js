@@ -1,5 +1,5 @@
 export default function AddProject(title, description, projectId) {
-  this.project_id = projectId;
+  this.id = projectId;
   this.title = title;
   this.description = description;
   this.tasks = [];
@@ -20,6 +20,10 @@ export function storeProject(projects) {
 export function getProject() {
   const res = localStorage.getItem("project_list");
   return res ? JSON.parse(res) : [];
+}
+
+export function getProjectById(projectId) {
+  return getProject().find(p => p.id === projectId)
 }
 
 function deleteProject() {}

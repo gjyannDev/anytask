@@ -5,7 +5,12 @@ import "./styles/styleCompo/dialogModals.css";
 import SideBar from "./compo/sideBar";
 import DialogModal from "./compo/dialogModals";
 import { hideModal } from "./compo/dialogModals";
-import { createProject, storeProject, getProject } from "./compo/addProject";
+import {
+  createProject,
+  storeProject,
+  getProject,
+  getProjectById,
+} from "./compo/project";
 import { v4 as uuidv4 } from "uuid";
 
 let uniqueId = uuidv4();
@@ -19,6 +24,7 @@ let dialog_container = document.querySelector(".dialog__container");
 let dialog_form = document.querySelector("#dialog__form");
 let cancel__btn = document.querySelector(".cancel__btn");
 let add_project = document.querySelector(".add__proj-btn");
+let project_list = document.querySelector(".project__list");
 
 side_bar.insertBefore(SideBar(), side_bar_lower);
 
@@ -39,11 +45,21 @@ add_project.addEventListener("click", (e) => {
   currentProjects.push(createProject(data.title, data.description, uniqueId));
   storeProject(currentProjects);
 
-  window.location.reload()
-  
+  window.location.reload();
+
   hideModal();
 });
 
 cancel__btn.addEventListener("click", () => {
   hideModal();
+});
+
+Array.from(project_list.children).forEach((project) => {
+  project.addEventListener("click", (e) => {
+    const project_id = e.currentTarget.getAttribute("data-id");
+
+    const project = getProjectById(project_id);
+
+    console.log(project);
+  });
 });
