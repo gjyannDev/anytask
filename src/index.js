@@ -6,6 +6,9 @@ import SideBar from "./compo/sideBar";
 import DialogModal from "./compo/dialogModals";
 import { hideModal } from "./compo/dialogModals";
 import { createProject, storeProject, getProject } from "./compo/addProject";
+import { v4 as uuidv4 } from "uuid";
+
+let uniqueId = uuidv4();
 
 let main_container = document.querySelector(".main__container");
 let contents_container = document.querySelector(".contents__container");
@@ -33,7 +36,7 @@ add_project.addEventListener("click", (e) => {
 
   const currentProjects = getProject();
 
-  currentProjects.push(createProject(data.title, data.description));
+  currentProjects.push(createProject(data.title, data.description, uniqueId));
   storeProject(currentProjects);
 
   window.location.reload()
