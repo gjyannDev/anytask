@@ -23,13 +23,24 @@
       </div>
     </aside>
     <main class="contents__container">
-      <div class="dialog__container hidden">
+      <div class="dialog__container hidden" id="modal__project">
         <div class="dialog__sub-container">
           <div class="form__container">
             <form id="dialog__form"></form>
             <div class="grouped__btn">
               <button type="button" class="cancel__btn btn">Cancel</button>
-              <button type="submit" class="add__btn btn">Add</button>
+              <button type="submit" class="add__btn btn add__proj-btn">Add</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="dialog__container hidden" id="modal__task">
+        <div class="dialog__sub-container">
+          <div class="form__container">
+            <form id="dialog__form"></form>
+            <div class="grouped__btn">
+              <button type="button" class="cancel__btn btn">Cancel</button>
+              <button type="submit" class="add__btn btn add__task-btn">Add</button>
             </div>
           </div>
         </div>
