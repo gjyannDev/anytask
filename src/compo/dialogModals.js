@@ -5,11 +5,12 @@ function inputWithLabel(labelName, inputType, name) {
   const textarea = document.createElement("textarea");
 
   inputContainer.setAttribute("class", "input__container");
-  inputContainer.setAttribute("type", inputType);
-  inputContainer.setAttribute("name", name);
+  input.setAttribute("type", inputType);
+  input.setAttribute("name", name);
   inputLabel.setAttribute("class", "input__label");
   input.setAttribute("class", "input");
   textarea.setAttribute("class", "text__area");
+  textarea.setAttribute("name", name)
 
   inputLabel.textContent = labelName;
 
@@ -29,7 +30,7 @@ export default function DialogModal(modalLabel) {
   const content_container = document.createElement("div");
   const modal_label_container = document.createElement("div");
   const modal_label = document.createElement("h2");
-
+  
   modal_container.setAttribute("class", "modal__container");
   content_container.setAttribute("class", "content__container");
   modal_label_container.setAttribute("class", "label__container");
@@ -51,4 +52,8 @@ export default function DialogModal(modalLabel) {
   modal_container.appendChild(content_container);
 
   return modal_container;
+}
+
+export function hideModal() {
+  document.querySelector(".dialog__container").classList.add("hidden")
 }
