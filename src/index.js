@@ -36,6 +36,8 @@ add_project.addEventListener("click", (e) => {
   currentProjects.push(createProject(data.title, data.description));
   storeProject(currentProjects);
 
+  window.location.reload()
+  
   hideModal();
 });
 

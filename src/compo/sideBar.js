@@ -3,6 +3,9 @@ import todayIcon from "/src/assets/icons/bx-calendar.svg";
 import weeklyIcon from "/src/assets/icons/bx-calendar-week.svg";
 import completedIcon from "/src/assets/icons/bx-check-square.svg";
 import trashIcon from "/src/assets/icons/bx-trash.svg";
+import projectIcon from "/src/assets/icons/circle.svg";
+
+import { getProject } from "./addProject";
 
 export function sidebarNavLink(navText, navImage) {
   const links = document.createElement("li");
@@ -28,6 +31,33 @@ export function sidebarNavLink(navText, navImage) {
   return links;
 }
 
+function disProjSidebar() {
+  const project_list_container = document.querySelector(".project__list");
+  const projects = getProject();
+
+  projects.forEach((project) => {
+    const list_name_container = document.createElement("div");
+    const project_icon = document.createElement("img");
+    const project_list_name = document.createElement("p");
+
+    list_name_container.setAttribute("class", "list__name-container");
+    project_list_name.setAttribute("class", "project__list-name");
+    project_icon.setAttribute("class", "proj__icon");
+
+    project_icon.src = projectIcon;
+    project_icon.alt = "Circle icon";
+    project_icon.style.width = "1.5rem";
+    project_icon.style.height = "1.5rem";
+    project_list_name.textContent = project.title;
+
+    list_name_container.appendChild(project_icon);
+    list_name_container.appendChild(project_list_name);
+    project_list_container.appendChild(list_name_container);
+  });
+
+  return project_list_container;
+}
+
 export default function SideBar() {
   const nav_links_middle = document.createElement("ul");
   const nav_links_upper = document.createElement("ul");
@@ -44,14 +74,15 @@ export default function SideBar() {
   middle_container.setAttribute("class", "middle__container");
 
   nav_links_upper.appendChild(sidebarNavLink("All", allIcon));
-  upper_container.appendChild(nav_links_upper)
+  upper_container.appendChild(nav_links_upper);
   nav_links_middle.appendChild(sidebarNavLink("Today", todayIcon));
   nav_links_middle.appendChild(sidebarNavLink("Weekly", weeklyIcon));
   nav_links_middle.appendChild(sidebarNavLink("Completed", completedIcon));
   nav_links_middle.appendChild(sidebarNavLink("Trash", trashIcon));
-  middle_container.appendChild(nav_links_middle)
+  middle_container.appendChild(nav_links_middle);
+  disProjSidebar();
   side_bar_container.appendChild(upper_container);
-  side_bar_container.appendChild(middle_container)
+  side_bar_container.appendChild(middle_container);
 
   return side_bar_container;
 }
