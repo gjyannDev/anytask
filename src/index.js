@@ -2,6 +2,7 @@ import "/src/styles/style.css";
 import "/src/styles/modernize.css";
 import "./styles/styleCompo/sideBar.css";
 import "./styles/styleCompo/dialogModals.css";
+import "./styles/styleCompo/contents.css";
 import SideBar from "./compo/sideBar";
 import DialogModal from "./compo/dialogModals";
 import { hideModal } from "./compo/dialogModals";
@@ -11,6 +12,8 @@ import {
   getProject,
   getProjectById,
 } from "./compo/project";
+import DisplayProject from "./compo/displayProject";
+
 import { v4 as uuidv4 } from "uuid";
 
 let uniqueId = uuidv4();
@@ -57,9 +60,12 @@ cancel__btn.addEventListener("click", () => {
 Array.from(project_list.children).forEach((project) => {
   project.addEventListener("click", (e) => {
     const project_id = e.currentTarget.getAttribute("data-id");
-
     const project = getProjectById(project_id);
 
-    console.log(project);
+    contents_container.replaceChildren(DisplayProject(project));
   });
 });
+
+
+//!Default page when refresh and new to the page
+//!Add task functionality
