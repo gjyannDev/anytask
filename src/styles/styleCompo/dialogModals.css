@@ -4,8 +4,14 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 1000; /* Adjust as needed */
+  transform: translate(-50%, -50%) scale(0.95);
+  z-index: 1000;
+}
+
+.dialog__container.active {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, -50%) scale(1);
 }
 
 .contents__container {
@@ -46,7 +52,7 @@
   transition: color .3s cubic-bezier(.25,.01,.25,1) 0s;
 }
 
-.input, .text__area {
+.input, .text__area, .select {
   max-width: inherit;
   height: 32px;
   background-color: #fdfaf6;

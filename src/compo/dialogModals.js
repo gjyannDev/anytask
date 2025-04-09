@@ -1,8 +1,9 @@
-function inputWithLabel(labelName, inputType, name) {
+function inputWithLabel(labelName, inputType, name, options = []) {
   const inputContainer = document.createElement("div");
   const inputLabel = document.createElement("p");
   const input = document.createElement("input");
   const textarea = document.createElement("textarea");
+  const select = document.createElement("select");
 
   inputContainer.setAttribute("class", "input__container");
   input.setAttribute("type", inputType);
@@ -10,16 +11,29 @@ function inputWithLabel(labelName, inputType, name) {
   inputLabel.setAttribute("class", "input__label");
   input.setAttribute("class", "input");
   textarea.setAttribute("class", "text__area");
-  textarea.setAttribute("name", name)
+  textarea.setAttribute("name", name);
+  select.setAttribute("class", "select");
+  select.setAttribute("name", name);
 
   inputLabel.textContent = labelName;
+
+  if (inputType === "select") {
+    options.forEach((opt) => {
+      const option = document.createElement("option");
+      option.value = opt.value;
+      option.textContent = opt.label;
+      select.appendChild(option);
+    });
+  }
 
   //Appending the content to the DOM
   inputContainer.appendChild(inputLabel);
   if (inputType === "textarea") {
-    inputContainer.appendChild(textarea)
+    inputContainer.appendChild(textarea);
+  } else if (inputType === "select") {
+    inputContainer.appendChild(select);
   } else {
-    inputContainer.appendChild(input)
+    inputContainer.appendChild(input);
   }
 
   return inputContainer;
@@ -30,7 +44,7 @@ export default function DialogModal(modalLabel) {
   const content_container = document.createElement("div");
   const modal_label_container = document.createElement("div");
   const modal_label = document.createElement("h2");
-  
+
   modal_container.setAttribute("class", "modal__container");
   content_container.setAttribute("class", "content__container");
   modal_label_container.setAttribute("class", "label__container");
@@ -45,8 +59,20 @@ export default function DialogModal(modalLabel) {
     content_container.appendChild(
       inputWithLabel("Description", "textarea", "description")
     );
-  } else if (modalLabel === "Edit Task") {
+  } else if (modalLabel === "Add Task") {
     content_container.appendChild(inputWithLabel("Title", "text", "title"));
+    content_container.appendChild(
+      inputWithLabel("Description", "textarea", "description")
+    );
+    content_container.appendChild(inputWithLabel("Due Date", "date", "date"));
+    content_container.appendChild(
+      inputWithLabel("Priority", "select", "priority", [
+        { value: "low", label: "Low Priority" },
+        { value: "medium", label: "Medium Priority" },
+        { value: "high", label: "High Priority" },
+        { value: "critical", label: "Critical" },
+      ])
+    );
   }
   modal_container.appendChild(modal_label_container);
   modal_container.appendChild(content_container);
@@ -55,5 +81,5 @@ export default function DialogModal(modalLabel) {
 }
 
 export function hideModal() {
-  document.querySelector(".dialog__container").classList.add("hidden")
+  document.querySelector(".dialog__container").classList.add("hidden");
 }

@@ -28,6 +28,7 @@ let dialog_form = document.querySelector("#dialog__form");
 let cancel__btn = document.querySelector(".cancel__btn");
 let add_project = document.querySelector(".add__proj-btn");
 let project_list = document.querySelector(".project__list");
+let add_task_btn = document.querySelector(".add__task-container")
 
 side_bar.insertBefore(SideBar(), side_bar_lower);
 
@@ -53,6 +54,14 @@ add_project.addEventListener("click", (e) => {
   hideModal();
 });
 
+document.addEventListener("click", (e) => {
+  if (e.target.closest(".add__task-container")) {
+    dialog_form.replaceChildren();
+    dialog_form.appendChild(DialogModal("Add Task"));
+    dialog_container.classList.remove("hidden");
+  }
+});
+
 cancel__btn.addEventListener("click", () => {
   hideModal();
 });
@@ -66,6 +75,3 @@ Array.from(project_list.children).forEach((project) => {
   });
 });
 
-
-//!Default page when refresh and new to the page
-//!Add task functionality
