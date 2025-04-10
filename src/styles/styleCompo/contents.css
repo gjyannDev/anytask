@@ -1,6 +1,13 @@
 /* project in content container */
 .display__project-container {
-  padding: 64px 0 0 64px;
+  padding: 4rem 0 0 4rem;
+}
+
+.display__project-list {
+  margin-top: 3.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
 .add__task-modal {
@@ -10,3 +17,19 @@
   width: 6.75rem;
 } 
 
+.task__container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 4rem;
+}
+
+.task__right-contents {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.task__left-contents {
+  display: flex;
+  gap: 1.125rem;
+}

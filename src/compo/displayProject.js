@@ -1,4 +1,56 @@
 import addTaskIcon from "/src/assets/icons/plus.svg";
+import delTaskIcon from "/src/assets/icons/bx-trash.svg";
+import editTaskIcon from "/src/assets/icons/bx-edit.svg";
+
+function displayTask(tasks) {
+  const container = document.createDocumentFragment(); // use fragment for performance
+
+  tasks.forEach((task, index) => {
+    const task_container = document.createElement("div");
+    const right_contents = document.createElement("div");
+    const left_contents = document.createElement("div");
+    const text_contents = document.createElement("div");
+    const checkbox = document.createElement("input");
+    const task_name = document.createElement("h3");
+    const task_description = document.createElement("p");
+    const edit_btn = document.createElement("img");
+    const del_btn = document.createElement("img");
+
+    task_container.setAttribute("class", "task__container");
+    task_container.setAttribute("data-task-id", task.id);
+    right_contents.setAttribute("class", "task__right-contents");
+    left_contents.setAttribute("class", "task__left-contents");
+    text_contents.setAttribute("class", "task__text-contents");
+    task_name.setAttribute("class", "task__name");
+    task_description.setAttribute("class", "task__description");
+    edit_btn.setAttribute("class", "edit__btn");
+    del_btn.setAttribute("class", "del__btn");
+    checkbox.setAttribute("type", "checkbox");
+
+    task_name.textContent = task.title;
+    task_description.textContent = task.description;
+    edit_btn.src = editTaskIcon;
+    edit_btn.alt = "edit task icon";
+    edit_btn.style.width = "1.3rem";
+    edit_btn.style.height = "1.3rem";
+    del_btn.src = delTaskIcon;
+    del_btn.alt = "trash task icon";
+    del_btn.style.width = "1.3rem";
+    del_btn.style.height = "1.3rem";
+
+    text_contents.appendChild(task_name);
+    text_contents.appendChild(task_description);
+    left_contents.appendChild(checkbox);
+    left_contents.appendChild(text_contents);
+    right_contents.appendChild(edit_btn);
+    right_contents.appendChild(del_btn);
+    task_container.appendChild(left_contents);
+    task_container.appendChild(right_contents);
+
+    container.appendChild(task_container);
+  })
+  return container;
+}
 
 export default function DisplayProject(data) {
   const project_container = document.createElement("div");
@@ -25,12 +77,13 @@ export default function DisplayProject(data) {
   add_task_icon.alt = "add task plus icon";
   add_task_icon.style.width = "1.5rem";
   add_task_icon.style.height = "1.5rem";
-  
+
   add_task_btn.appendChild(add_task_icon);
   add_task_btn.appendChild(add_task_text);
-  add_task_container.appendChild(add_task_btn)
+  add_task_container.appendChild(add_task_btn);
+  proj_list_container.appendChild(displayTask(data.tasks));
   project_container.appendChild(project_title);
+  project_container.appendChild(proj_list_container);
   project_container.appendChild(add_task_container);
-
   return project_container;
 }

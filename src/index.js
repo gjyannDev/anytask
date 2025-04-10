@@ -51,7 +51,6 @@ document.addEventListener("click", (e) => {
     task_form.replaceChildren();
     task_form.appendChild(DialogModal("Add Task"));
     dialog_container_task.classList.remove("hidden");
-    console.log("Getting All Task: ", getTaskByProject(current_project_id));
   }
 });
 
@@ -109,8 +108,6 @@ document.querySelectorAll("[data-add-target]").forEach((btn) => {
       createTask(current_project_id, tasks);
 
       window.location.reload();
-
-      console.log("Getting Task By Project Id: ", getTaskByProject(current_project_id));
 
       hideModal("dialog__container-task");
     }
