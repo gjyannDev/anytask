@@ -5,9 +5,13 @@ export default function AddProject(title, description, projectId) {
   this.tasks = [];
 }
 
-AddProject.prototype.addTask = function (task) {
+AddProject.prototype.addTask = function(task) {
   this.tasks.push(task);
 };
+
+AddProject.prototype.getTask = function() {
+  return this.tasks
+}
 
 export function createProject(title, description, projId) {
   return new AddProject(title, description, projId);
@@ -19,19 +23,15 @@ export function storeProject(projects) {
 
 export function getProject() {
   const res = localStorage.getItem("project_list");
-  console.log(JSON.parse(res))
-  return res ? JSON.parse(res) : [];
+  const rawProjects = res ? JSON.parse(res) : [];
+
+  return rawProjects.map((p) => {
+    const project = new AddProject(p.title, p.description, p.id);
+    project.tasks = p.tasks || [];
+    return project;
+  });
 }
 
 export function getProjectById(projectId) {
-  const projectById = getProject().find((p) => p.id === projectId);
-
-  const hydratedProj = new AddProject(
-    projectById.title,
-    projectById.description,
-    projectById.id
-  );
-  hydratedProj.tasks = projectById.tasks;
-
-  return hydratedProj;
+  return getProject().find((p) => p.id === projectId);
 }

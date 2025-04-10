@@ -35,8 +35,6 @@ function disProjSidebar() {
   const project_list_container = document.querySelector(".project__list");
   const projects = getProject();
 
-  console.log(projects)
-
   projects.forEach((project) => {
     const list_name_container = document.createElement("div");
     const project_icon = document.createElement("img");

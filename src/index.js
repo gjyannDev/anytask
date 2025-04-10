@@ -10,14 +10,12 @@ import {
   createProject,
   storeProject,
   getProject,
-  getProjectById
+  getProjectById,
 } from "./compo/project";
-import { createTask } from "./compo/tasks";
+import { createTask, getTaskByProject } from "./compo/tasks";
 import DisplayProject from "./compo/displayProject";
 
 import { v4 as uuidv4 } from "uuid";
-
-let uniqueId = uuidv4();
 
 let main_container = document.querySelector(".main__container");
 let contents_container = document.querySelector(".contents__container");
@@ -35,7 +33,7 @@ let add_task_btn = document.querySelector(".add__task-container");
 let task_form = document.querySelector("#task__form");
 let dialog_container_task = document.querySelector(".dialog__container-task");
 
-let current_project_id = ""
+let current_project_id = "";
 
 //This insert the sidebar before the project contents in the sidebar
 side_bar.insertBefore(SideBar(), side_bar_lower);
@@ -53,6 +51,7 @@ document.addEventListener("click", (e) => {
     task_form.replaceChildren();
     task_form.appendChild(DialogModal("Add Task"));
     dialog_container_task.classList.remove("hidden");
+    console.log("Getting All Task: ", getTaskByProject(current_project_id));
   }
 });
 
@@ -77,13 +76,15 @@ document.querySelectorAll("[data-add-target]").forEach((btn) => {
     if (modal === "project") {
       e.preventDefault();
 
+      let projectId = uuidv4();
+
       const formData = new FormData(project_form);
       const data = Object.fromEntries(formData.entries());
 
       const currentProjects = getProject();
 
       currentProjects.push(
-        createProject(data.title, data.description, uniqueId)
+        createProject(data.title, data.description, projectId)
       );
 
       storeProject(currentProjects);
@@ -94,12 +95,22 @@ document.querySelectorAll("[data-add-target]").forEach((btn) => {
     } else if (modal === "task") {
       e.preventDefault();
 
+      let taskId = uuidv4();
+
       const formData = new FormData(task_form);
       const data = Object.fromEntries(formData.entries());
-      
-      createTask(current_project_id, data)
+
+      const tasks = {
+        id: taskId,
+        project_id: getProjectById(current_project_id).id,
+        ...data,
+      };
+
+      createTask(current_project_id, tasks);
 
       window.location.reload();
+
+      console.log("Getting Task By Project Id: ", getTaskByProject(current_project_id));
 
       hideModal("dialog__container-task");
     }
@@ -112,8 +123,8 @@ Array.from(project_list.children).forEach((project) => {
     const project_id = e.currentTarget.getAttribute("data-id");
     const project = getProjectById(project_id);
 
-    current_project_id = project_id
-    
+    current_project_id = project_id;
+
     contents_container.replaceChildren(DisplayProject(project));
   });
 });

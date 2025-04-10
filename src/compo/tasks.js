@@ -1,4 +1,3 @@
-import AddProject from "./project";
 import { getProject, storeProject } from "./project";
 
 export function createTask(projectId, task) {
@@ -11,15 +10,15 @@ export function createTask(projectId, task) {
     return;
   }
 
-  const project = new AddProject(
-    allProjects[index].title,
-    allProjects[index].description,
-    allProjects[index].id
-  );
-  project.tasks = allProjects[index].tasks || [];
+  allProjects[index].addTask(task);
 
-  project.addTask(task);
-
-  allProjects[index] = project;
   storeProject(allProjects);
+}
+
+export function getTaskByProject(projectId) {
+  const allProjects = getProject()
+
+  const index = allProjects.findIndex(p => p.id === projectId);
+
+  return allProjects[index].getTask();
 }
