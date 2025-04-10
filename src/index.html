@@ -13,36 +13,34 @@
       <div class="side__bar-lower">
         <div class="projects__container">
           <h1 class="project__text">My Projects</h1>
-          <div class="project__list">
-            
-          </div>
+          <div class="project__list"></div>
         </div>
         <div class="add__projects-container">
-          <button type="button" class="add__project-btn">
+          <button type="button" class="add__project-btn" data-open-modal="project">
             <img src="./assets/icons/bx-plus-circle.svg" alt="plus circle icon">
             <p>Add Project</p>
           </button>
         </div>
       </div>
     </aside>
-    <div class="dialog__container hidden" id="modal__project">
+    <div class="dialog__container-project hidden" id="modal__project">
       <div class="dialog__sub-container">
         <div class="form__container">
-          <form id="dialog__form"></form>
+          <form id="project__form"></form>
           <div class="grouped__btn">
-            <button type="button" class="cancel__btn btn">Cancel</button>
-            <button type="submit" class="add__btn btn add__proj-btn">Add</button>
+            <button type="button" class="cancel__btn btn" data-modal-action="close_project">Cancel</button>
+            <button type="submit" class="add__btn btn add__proj-btn" data-add-target="project">Add</button>
           </div>
         </div>
       </div>
     </div>
-    <div class="dialog__container hidden" id="modal__task">
+    <div class="dialog__container-task hidden" id="modal__task">
       <div class="dialog__sub-container">
         <div class="form__container">
-          <form id="dialog__form"></form>
+          <form id="task__form"></form>
           <div class="grouped__btn">
-            <button type="button" class="cancel__btn btn">Cancel</button>
-            <button type="submit" class="add__btn btn add__task-btn">Add</button>
+            <button type="button" class="cancel__btn btn" data-modal-action="close_task">Cancel</button>
+            <button type="submit" class="add__btn btn add__task-btn" data-add-target="task">Add</button>
           </div>
         </div>
       </div>

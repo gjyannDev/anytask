@@ -3,11 +3,10 @@
   padding: 64px 0 0 64px;
 }
 
-.add__task-container {
+.add__task-modal {
   display: flex;
   gap: 0.5rem;
   margin-top: 2rem;
   width: 6.75rem;
-  cursor: pointer;
 } 
 

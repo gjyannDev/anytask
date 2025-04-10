@@ -80,6 +80,6 @@ export default function DialogModal(modalLabel) {
   return modal_container;
 }
 
-export function hideModal() {
-  document.querySelector(".dialog__container").classList.add("hidden");
+export function hideModal(modalContainer) {
+  document.querySelector(`.${modalContainer}`).classList.add("hidden");
 }

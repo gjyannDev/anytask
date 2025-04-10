@@ -8,13 +8,17 @@ export default function DisplayProject(data) {
   const project_title = document.createElement("h1");
   const add_task_text = document.createElement("p");
   const add_task_icon = document.createElement("img");
+  const add_task_btn = document.createElement("button");
 
   project_container.setAttribute("class", "display__project-container");
   proj_list_container.setAttribute("class", "display__project-list");
   lower_container.setAttribute("class", "lower__container");
   add_task_container.setAttribute("class", "add__task-container");
+  add_task_btn.setAttribute("data-open-modal", "task");
+  add_task_btn.setAttribute("class", "add__task-modal");
   project_title.setAttribute("class", "project__title");
   add_task_text.setAttribute("class", "add__task-text");
+  
 
   project_title.textContent = data.title;
   add_task_text.textContent = "Add Task";
@@ -23,8 +27,9 @@ export default function DisplayProject(data) {
   add_task_icon.style.width = "1.5rem";
   add_task_icon.style.height = "1.5rem";
   
-  add_task_container.appendChild(add_task_icon);
-  add_task_container.appendChild(add_task_text);
+  add_task_btn.appendChild(add_task_icon);
+  add_task_btn.appendChild(add_task_text);
+  add_task_container.appendChild(add_task_btn)
   project_container.appendChild(project_title);
   project_container.appendChild(add_task_container);
 

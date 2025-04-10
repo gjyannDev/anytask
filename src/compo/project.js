@@ -26,4 +26,3 @@ export function getProjectById(projectId) {
   return getProject().find(p => p.id === projectId)
 }
 
-function deleteProject() {}
