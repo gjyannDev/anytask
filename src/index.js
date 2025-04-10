@@ -10,8 +10,9 @@ import {
   createProject,
   storeProject,
   getProject,
-  getProjectById,
+  getProjectById
 } from "./compo/project";
+import { createTask } from "./compo/tasks";
 import DisplayProject from "./compo/displayProject";
 
 import { v4 as uuidv4 } from "uuid";
@@ -33,6 +34,8 @@ let project_list = document.querySelector(".project__list");
 let add_task_btn = document.querySelector(".add__task-container");
 let task_form = document.querySelector("#task__form");
 let dialog_container_task = document.querySelector(".dialog__container-task");
+
+let current_project_id = ""
 
 //This insert the sidebar before the project contents in the sidebar
 side_bar.insertBefore(SideBar(), side_bar_lower);
@@ -82,6 +85,7 @@ document.querySelectorAll("[data-add-target]").forEach((btn) => {
       currentProjects.push(
         createProject(data.title, data.description, uniqueId)
       );
+
       storeProject(currentProjects);
 
       window.location.reload();
@@ -89,11 +93,15 @@ document.querySelectorAll("[data-add-target]").forEach((btn) => {
       hideModal("dialog__container-project");
     } else if (modal === "task") {
       e.preventDefault();
-      
+
       const formData = new FormData(task_form);
       const data = Object.fromEntries(formData.entries());
+      
+      createTask(current_project_id, data)
 
-      console.log("task data: ", data)
+      window.location.reload();
+
+      hideModal("dialog__container-task");
     }
   });
 });
@@ -104,6 +112,8 @@ Array.from(project_list.children).forEach((project) => {
     const project_id = e.currentTarget.getAttribute("data-id");
     const project = getProjectById(project_id);
 
+    current_project_id = project_id
+    
     contents_container.replaceChildren(DisplayProject(project));
   });
 });

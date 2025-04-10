@@ -18,7 +18,6 @@ export default function DisplayProject(data) {
   add_task_btn.setAttribute("class", "add__task-modal");
   project_title.setAttribute("class", "project__title");
   add_task_text.setAttribute("class", "add__task-text");
-  
 
   project_title.textContent = data.title;
   add_task_text.textContent = "Add Task";

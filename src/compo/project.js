@@ -19,10 +19,19 @@ export function storeProject(projects) {
 
 export function getProject() {
   const res = localStorage.getItem("project_list");
+  console.log(JSON.parse(res))
   return res ? JSON.parse(res) : [];
 }
 
 export function getProjectById(projectId) {
-  return getProject().find(p => p.id === projectId)
-}
+  const projectById = getProject().find((p) => p.id === projectId);
 
+  const hydratedProj = new AddProject(
+    projectById.title,
+    projectById.description,
+    projectById.id
+  );
+  hydratedProj.tasks = projectById.tasks;
+
+  return hydratedProj;
+}
