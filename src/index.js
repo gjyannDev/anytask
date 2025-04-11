@@ -144,7 +144,7 @@ document.querySelectorAll("[data-add-target]").forEach((btn) => {
 
       deleteTask(task_id, current_project_id);
 
-      // window.location.reload();
+      window.location.reload();
 
       hideModal("dialog__container-del");
     }
