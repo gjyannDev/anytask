@@ -17,6 +17,7 @@ import {
   getTaskByProject,
   getTaskById,
   updateTask,
+  deleteTask
 } from "./compo/tasks";
 import DisplayProject from "./compo/displayProject";
 
@@ -36,7 +37,7 @@ let task_form = document.querySelector("#task__form");
 let dialog_container_task = document.querySelector(".dialog__container-task");
 let edit_form = document.querySelector("#edit__form");
 let dialog_container_edit = document.querySelector(".dialog__container-edit");
-let del_container = document.querySelector(".illustration__container")
+let del_container = document.querySelector(".illustration__container");
 let dialog_container_del = document.querySelector(".dialog__container-del");
 
 let current_project_id = "";
@@ -127,7 +128,7 @@ document.querySelectorAll("[data-add-target]").forEach((btn) => {
       let task_details = getTaskById(current_project_id, task_id);
       const formData = new FormData(edit_form);
       const data = Object.fromEntries(formData.entries());
-
+      
       task_details.title = data.title;
       task_details.description = data.description;
       task_details.date = data.date;
@@ -138,6 +139,14 @@ document.querySelectorAll("[data-add-target]").forEach((btn) => {
       window.location.reload();
 
       hideModal("dialog__container-edit");
+    } else if (modal === "delete_task") {
+      e.preventDefault();
+
+      deleteTask(task_id, current_project_id);
+
+      // window.location.reload();
+
+      hideModal("dialog__container-del");
     }
   });
 });
@@ -175,7 +184,9 @@ document.addEventListener("click", (e) => {
 document.addEventListener("click", (e) => {
   if (e.target.closest(".del__btn")) {
     del_container.replaceChildren();
-    del_container.appendChild(DialogModal("Delete", {}, "Are you sure you want to delete this task?"));
+    del_container.appendChild(
+      DialogModal("Delete", {}, "Are you sure you want to delete this task?")
+    );
     dialog_container_del.classList.remove("hidden");
   }
-})
+});

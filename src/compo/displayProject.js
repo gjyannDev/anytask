@@ -87,7 +87,5 @@ export default function DisplayProject(data) {
   project_container.appendChild(proj_list_container);
   project_container.appendChild(add_task_container);
 
-  console.log(getTaskByProject(data.id))
-
   return project_container;
 }

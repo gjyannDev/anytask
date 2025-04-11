@@ -9,6 +9,10 @@ AddProject.prototype.addTask = function(task) {
   this.tasks.push(task);
 };
 
+AddProject.prototype.removeTask = function(task) {
+  this.tasks = task
+}
+
 AddProject.prototype.getTask = function() {
   return this.tasks
 }

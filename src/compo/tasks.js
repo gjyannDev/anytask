@@ -41,10 +41,16 @@ export function updateTask(updatedTask) {
   storeProject(allProjects);
 }
 
-export function deleteTask() {
+export function deleteTask(taskId, projectId) {
   const allProjects = getProject()
+  const index = allProjects.findIndex(p => p.id === projectId);
+  let filterTask = undefined
 
   allProjects.forEach((project) => {
-    console.log(project)
+    filterTask = project.tasks.filter((el) => el.id !== taskId);
   });
+
+  allProjects[index].removeTask(filterTask)
+
+  storeProject(allProjects)
 }
