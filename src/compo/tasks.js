@@ -27,3 +27,16 @@ export function getTaskById(projectId, taskId) {
   return getTaskByProject(projectId).find((p) => p.id === taskId)
 }
 
+export function updateTask(updatedTask) {
+  const allProjects = getProject()
+  
+  allProjects.forEach((project) => {
+    const taskIndex = project.tasks.findIndex((t) => t.id === updatedTask.id);
+
+    if (taskIndex !== -1) {
+      project.tasks[taskIndex] = updatedTask;
+    }
+  });
+
+  storeProject(allProjects);
+}

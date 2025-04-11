@@ -12,7 +12,12 @@ import {
   getProject,
   getProjectById,
 } from "./compo/project";
-import { createTask, getTaskByProject, getTaskById} from "./compo/tasks";
+import {
+  createTask,
+  getTaskByProject,
+  getTaskById,
+  updateTask,
+} from "./compo/tasks";
 import DisplayProject from "./compo/displayProject";
 
 import { v4 as uuidv4 } from "uuid";
@@ -22,7 +27,9 @@ let contents_container = document.querySelector(".contents__container");
 let side_bar = document.querySelector("#side__bar");
 let side_bar_lower = document.querySelector(".side__bar-lower");
 let add_project_btn = document.querySelector(".add__project-btn");
-let dialog_container_project = document.querySelector(".dialog__container-project");
+let dialog_container_project = document.querySelector(
+  ".dialog__container-project"
+);
 let project_form = document.querySelector("#project__form");
 let project_list = document.querySelector(".project__list");
 let task_form = document.querySelector("#task__form");
@@ -31,7 +38,7 @@ let edit_form = document.querySelector("#edit__form");
 let dialog_container_edit = document.querySelector(".dialog__container-edit");
 
 let current_project_id = "";
-let tasK_by_id = undefined
+let task_id = "";
 
 //This insert the sidebar before the project contents in the sidebar
 side_bar.insertBefore(SideBar(), side_bar_lower);
@@ -62,7 +69,7 @@ document.querySelectorAll("[data-modal-action]").forEach((btn) => {
     } else if (modal === "close_task") {
       hideModal("dialog__container-task");
     } else if (modal === "close_edit") {
-      hideModal("dialog__container-edit")
+      hideModal("dialog__container-edit");
     }
   });
 });
@@ -111,8 +118,22 @@ document.querySelectorAll("[data-add-target]").forEach((btn) => {
 
       hideModal("dialog__container-task");
     } else if (modal === "edit") {
-      e.preventDefault()
-      alert("Clicked")
+      e.preventDefault();
+
+      let task_details = getTaskById(current_project_id, task_id);
+      const formData = new FormData(edit_form);
+      const data = Object.fromEntries(formData.entries());
+
+      task_details.title = data.title;
+      task_details.description = data.description;
+      task_details.date = data.date;
+      task_details.priority = data.priority;
+
+      updateTask(task_details);
+
+      window.location.reload();
+
+      hideModal("dialog__container-edit");
     }
   });
 });
@@ -125,24 +146,24 @@ Array.from(project_list.children).forEach((project) => {
 
     current_project_id = project_id;
 
-    console.log("Hello")
-
     contents_container.replaceChildren(DisplayProject(project));
   });
 });
 
 // This function allow you to click specific task
 document.addEventListener("click", (e) => {
-  const task = e.target.closest(".display__project-list > *");
-  let task_id = undefined
-  
-  if (task && task.hasAttribute("data-task-id")) {
-    task_id = task.getAttribute("data-task-id");
-  } 
+  const task_container = e.target.closest(".display__project-list > *");
+  let task = {};
 
+  if (task_container && task_container.hasAttribute("data-task-id")) {
+    task_id = task_container.getAttribute("data-task-id");
+    task = getTaskById(current_project_id, task_id);
+  }
+
+  //This show the modal of the edit form
   if (e.target.closest(".edit__btn")) {
     edit_form.replaceChildren();
-    edit_form.appendChild(DialogModal("Edit Task", getTaskById(current_project_id, task_id)));
+    edit_form.appendChild(DialogModal("Edit Task", task));
     dialog_container_edit.classList.remove("hidden");
   }
-}); 
+});
