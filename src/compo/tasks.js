@@ -40,3 +40,11 @@ export function updateTask(updatedTask) {
 
   storeProject(allProjects);
 }
+
+export function deleteTask() {
+  const allProjects = getProject()
+
+  allProjects.forEach((project) => {
+    console.log(project)
+  });
+}

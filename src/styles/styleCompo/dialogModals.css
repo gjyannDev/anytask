@@ -1,4 +1,4 @@
-.dialog__container-project, .dialog__container-task, .dialog__container-edit {
+.dialog__container-project, .dialog__container-task, .dialog__container-edit, .dialog__container-del{
   height: 100%;
   margin: auto 0;
   position: absolute;
@@ -83,4 +83,33 @@
   gap: 24px;
   justify-self: end;
   margin-bottom: 2rem;
+}
+
+.grouped__btn-del {
+  display: flex;
+  gap: 24px;
+  justify-self: center;
+  margin-bottom: 2rem;
+}
+
+.illustration__container {
+  padding-top: var(--size-4xl);
+  height: 14.5rem;
+}
+
+.alert__text {
+  font-size: 24px;
+  max-width: 300px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.alert__text-container {
+  padding-bottom: 3.5rem;
+}
+
+.illustration__container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

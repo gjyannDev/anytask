@@ -36,6 +36,8 @@ let task_form = document.querySelector("#task__form");
 let dialog_container_task = document.querySelector(".dialog__container-task");
 let edit_form = document.querySelector("#edit__form");
 let dialog_container_edit = document.querySelector(".dialog__container-edit");
+let del_container = document.querySelector(".illustration__container")
+let dialog_container_del = document.querySelector(".dialog__container-del");
 
 let current_project_id = "";
 let task_id = "";
@@ -70,6 +72,8 @@ document.querySelectorAll("[data-modal-action]").forEach((btn) => {
       hideModal("dialog__container-task");
     } else if (modal === "close_edit") {
       hideModal("dialog__container-edit");
+    } else if (modal === "close_del") {
+      hideModal("dialog__container-del");
     }
   });
 });
@@ -167,3 +171,11 @@ document.addEventListener("click", (e) => {
     dialog_container_edit.classList.remove("hidden");
   }
 });
+
+document.addEventListener("click", (e) => {
+  if (e.target.closest(".del__btn")) {
+    del_container.replaceChildren();
+    del_container.appendChild(DialogModal("Delete", {}, "Are you sure you want to delete this task?"));
+    dialog_container_del.classList.remove("hidden");
+  }
+})

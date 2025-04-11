@@ -1,3 +1,5 @@
+import delIllustrationImg from "/src/assets/images/deleteIllustration.svg"
+
 function inputWithLabel(labelName, inputType, name, options = [], value = "") {
   const inputContainer = document.createElement("div");
   const inputLabel = document.createElement("p");
@@ -43,7 +45,7 @@ function inputWithLabel(labelName, inputType, name, options = [], value = "") {
   return inputContainer;
 }
 
-export default function DialogModal(modalLabel, data = {}) {
+export default function DialogModal(modalLabel, data = {}, delAlertText = "") {
   const modal_container = document.createElement("div");
   const content_container = document.createElement("div");
   const modal_label_container = document.createElement("div");
@@ -92,8 +94,24 @@ export default function DialogModal(modalLabel, data = {}) {
         { value: "critical", label: "Critical" },
       ], data.priority)
     );
+  } else if (modalLabel === "Delete") {
+    const illustration_container = document.querySelector(".illustration__container");
+    const alert_text = document.querySelector(".alert__text");
+    const illustration_img = document.createElement("img");
+
+    illustration_img.setAttribute("class", "illustration__img");
+
+    illustration_img.src = delIllustrationImg
+    illustration_img.style.width = "248px";
+    illustration_img.style.objectFit = "cover";
+    alert_text.textContent = delAlertText
+
+    illustration_container.appendChild(illustration_img)
+  } 
+
+  if (modalLabel !== "Delete") {
+    modal_container.appendChild(modal_label_container);
   }
-  modal_container.appendChild(modal_label_container);
   modal_container.appendChild(content_container);
 
   return modal_container;
