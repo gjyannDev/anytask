@@ -17,7 +17,7 @@ import {
   getTaskByProject,
   getTaskById,
   updateTask,
-  deleteTask
+  deleteTask,
 } from "./compo/tasks";
 import DisplayProject from "./compo/displayProject";
 
@@ -42,6 +42,7 @@ let dialog_container_del = document.querySelector(".dialog__container-del");
 
 let current_project_id = "";
 let task_id = "";
+let is_completed = false;
 
 //This insert the sidebar before the project contents in the sidebar
 side_bar.insertBefore(SideBar(), side_bar_lower);
@@ -114,6 +115,7 @@ document.querySelectorAll("[data-add-target]").forEach((btn) => {
       const tasks = {
         id: taskId,
         project_id: getProjectById(current_project_id).id,
+        is_completed: is_completed,
         ...data,
       };
 
@@ -128,7 +130,7 @@ document.querySelectorAll("[data-add-target]").forEach((btn) => {
       let task_details = getTaskById(current_project_id, task_id);
       const formData = new FormData(edit_form);
       const data = Object.fromEntries(formData.entries());
-      
+
       task_details.title = data.title;
       task_details.description = data.description;
       task_details.date = data.date;
@@ -166,11 +168,24 @@ Array.from(project_list.children).forEach((project) => {
 // This function allow you to click specific task
 document.addEventListener("click", (e) => {
   const task_container = e.target.closest(".display__project-list > *");
+  const task_checkbox = e.target.closest(".task__checkbox");
   let task = {};
 
   if (task_container && task_container.hasAttribute("data-task-id")) {
     task_id = task_container.getAttribute("data-task-id");
     task = getTaskById(current_project_id, task_id);
+
+    if (task_checkbox && task_checkbox.checked) {
+      is_completed = true;
+
+      let task_details = getTaskById(current_project_id, task_id);
+
+      task_details.is_completed = is_completed;
+
+      updateTask(task_details);
+
+      window.location.reload();
+    }
   }
 
   //This show the modal of the edit form

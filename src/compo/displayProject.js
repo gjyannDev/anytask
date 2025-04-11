@@ -27,6 +27,7 @@ function displayTask(tasks) {
     edit_btn.setAttribute("class", "edit__btn");
     del_btn.setAttribute("class", "del__btn");
     checkbox.setAttribute("type", "checkbox");
+    checkbox.setAttribute("class", "task__checkbox");
 
     task_name.textContent = task.title;
     task_description.textContent = task.description;
