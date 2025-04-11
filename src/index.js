@@ -24,15 +24,14 @@ let side_bar_lower = document.querySelector(".side__bar-lower");
 let add_project_btn = document.querySelector(".add__project-btn");
 let dialog_container_project = document.querySelector(".dialog__container-project");
 let project_form = document.querySelector("#project__form");
-let cancel__btn = document.querySelector(".cancel__btn");
-let add_project = document.querySelector(".add__proj-btn");
 let project_list = document.querySelector(".project__list");
-let add_task_btn = document.querySelector(".add__task-container");
 let task_form = document.querySelector("#task__form");
 let dialog_container_task = document.querySelector(".dialog__container-task");
-let display_project_list = document.querySelector(".display__project-list");
+let edit_form = document.querySelector("#edit__form");
+let dialog_container_edit = document.querySelector(".dialog__container-edit");
 
 let current_project_id = "";
+let tasK_by_id = undefined
 
 //This insert the sidebar before the project contents in the sidebar
 side_bar.insertBefore(SideBar(), side_bar_lower);
@@ -62,6 +61,8 @@ document.querySelectorAll("[data-modal-action]").forEach((btn) => {
       hideModal("dialog__container-project");
     } else if (modal === "close_task") {
       hideModal("dialog__container-task");
+    } else if (modal === "close_edit") {
+      hideModal("dialog__container-edit")
     }
   });
 });
@@ -109,6 +110,9 @@ document.querySelectorAll("[data-add-target]").forEach((btn) => {
       window.location.reload();
 
       hideModal("dialog__container-task");
+    } else if (modal === "edit") {
+      e.preventDefault()
+      alert("Clicked")
     }
   });
 });
@@ -130,10 +134,15 @@ Array.from(project_list.children).forEach((project) => {
 // This function allow you to click specific task
 document.addEventListener("click", (e) => {
   const task = e.target.closest(".display__project-list > *");
-
+  let task_id = undefined
+  
   if (task && task.hasAttribute("data-task-id")) {
-    const task_id = task.getAttribute("data-task-id");
-    
-    console.log(getTaskById(current_project_id, task_id))
+    task_id = task.getAttribute("data-task-id");
+  } 
+
+  if (e.target.closest(".edit__btn")) {
+    edit_form.replaceChildren();
+    edit_form.appendChild(DialogModal("Edit Task", getTaskById(current_project_id, task_id)));
+    dialog_container_edit.classList.remove("hidden");
   }
-});
+}); 

@@ -1,4 +1,4 @@
-.dialog__container-project, .dialog__container-task {
+.dialog__container-project, .dialog__container-task, .dialog__container-edit {
   height: 100%;
   margin: auto 0;
   position: absolute;

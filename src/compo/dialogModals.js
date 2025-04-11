@@ -15,6 +15,7 @@ function inputWithLabel(labelName, inputType, name, options = [], value = "") {
   select.setAttribute("class", "select");
   select.setAttribute("name", name);
   input.value = value
+  textarea.value = value
   
   inputLabel.textContent = labelName;
 
@@ -26,6 +27,8 @@ function inputWithLabel(labelName, inputType, name, options = [], value = "") {
       select.appendChild(option);
     });
   }
+
+  select.value = value
 
   //Appending the content to the DOM
   inputContainer.appendChild(inputLabel);
@@ -40,7 +43,7 @@ function inputWithLabel(labelName, inputType, name, options = [], value = "") {
   return inputContainer;
 }
 
-export default function DialogModal(modalLabel) {
+export default function DialogModal(modalLabel, data = {}) {
   const modal_container = document.createElement("div");
   const content_container = document.createElement("div");
   const modal_label_container = document.createElement("div");
@@ -51,6 +54,7 @@ export default function DialogModal(modalLabel) {
   modal_label_container.setAttribute("class", "label__container");
   modal_label.setAttribute("class", "modal__label");
 
+  console.log("data in modal: ", data)
   modal_label.textContent = modalLabel;
 
   //Appending the content
@@ -75,7 +79,19 @@ export default function DialogModal(modalLabel) {
       ])
     );
   } else if (modalLabel === "Edit Task") {
-
+    content_container.appendChild(inputWithLabel("Title", "text", "title", [], data.title));
+    content_container.appendChild(
+      inputWithLabel("Description", "textarea", "description", [], data.description)
+    );
+    content_container.appendChild(inputWithLabel("Due Date", "date", "date", [], data.date));
+    content_container.appendChild(
+      inputWithLabel("Priority", "select", "priority", [
+        { value: "low", label: "Low Priority" },
+        { value: "medium", label: "Medium Priority" },
+        { value: "high", label: "High Priority" },
+        { value: "critical", label: "Critical" },
+      ], data.priority)
+    );
   }
   modal_container.appendChild(modal_label_container);
   modal_container.appendChild(content_container);
@@ -86,3 +102,4 @@ export default function DialogModal(modalLabel) {
 export function hideModal(modalContainer) {
   document.querySelector(`.${modalContainer}`).classList.add("hidden");
 }
+
