@@ -12,7 +12,7 @@ import {
   getProject,
   getProjectById,
 } from "./compo/project";
-import { createTask, getTaskByProject } from "./compo/tasks";
+import { createTask, getTaskByProject, getTaskById} from "./compo/tasks";
 import DisplayProject from "./compo/displayProject";
 
 import { v4 as uuidv4 } from "uuid";
@@ -22,9 +22,7 @@ let contents_container = document.querySelector(".contents__container");
 let side_bar = document.querySelector("#side__bar");
 let side_bar_lower = document.querySelector(".side__bar-lower");
 let add_project_btn = document.querySelector(".add__project-btn");
-let dialog_container_project = document.querySelector(
-  ".dialog__container-project"
-);
+let dialog_container_project = document.querySelector(".dialog__container-project");
 let project_form = document.querySelector("#project__form");
 let cancel__btn = document.querySelector(".cancel__btn");
 let add_project = document.querySelector(".add__proj-btn");
@@ -32,6 +30,7 @@ let project_list = document.querySelector(".project__list");
 let add_task_btn = document.querySelector(".add__task-container");
 let task_form = document.querySelector("#task__form");
 let dialog_container_task = document.querySelector(".dialog__container-task");
+let display_project_list = document.querySelector(".display__project-list");
 
 let current_project_id = "";
 
@@ -122,6 +121,19 @@ Array.from(project_list.children).forEach((project) => {
 
     current_project_id = project_id;
 
+    console.log("Hello")
+
     contents_container.replaceChildren(DisplayProject(project));
   });
+});
+
+// This function allow you to click specific task
+document.addEventListener("click", (e) => {
+  const task = e.target.closest(".display__project-list > *");
+
+  if (task && task.hasAttribute("data-task-id")) {
+    const task_id = task.getAttribute("data-task-id");
+    
+    console.log(getTaskById(current_project_id, task_id))
+  }
 });

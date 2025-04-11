@@ -1,4 +1,4 @@
-function inputWithLabel(labelName, inputType, name, options = []) {
+function inputWithLabel(labelName, inputType, name, options = [], value = "") {
   const inputContainer = document.createElement("div");
   const inputLabel = document.createElement("p");
   const input = document.createElement("input");
@@ -14,7 +14,8 @@ function inputWithLabel(labelName, inputType, name, options = []) {
   textarea.setAttribute("name", name);
   select.setAttribute("class", "select");
   select.setAttribute("name", name);
-
+  input.value = value
+  
   inputLabel.textContent = labelName;
 
   if (inputType === "select") {
@@ -73,6 +74,8 @@ export default function DialogModal(modalLabel) {
         { value: "critical", label: "Critical" },
       ])
     );
+  } else if (modalLabel === "Edit Task") {
+
   }
   modal_container.appendChild(modal_label_container);
   modal_container.appendChild(content_container);

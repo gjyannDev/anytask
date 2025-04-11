@@ -22,3 +22,8 @@ export function getTaskByProject(projectId) {
 
   return allProjects[index].getTask();
 }
+
+export function getTaskById(projectId, taskId) {
+  return getTaskByProject(projectId).find((p) => p.id === taskId)
+}
+

@@ -1,9 +1,10 @@
 import addTaskIcon from "/src/assets/icons/plus.svg";
 import delTaskIcon from "/src/assets/icons/bx-trash.svg";
-import editTaskIcon from "/src/assets/icons/bx-edit.svg";
+import editTaskIcon from "/src/assets/icons/bx-edit.svg"; 
+import {getTaskByProject} from "./tasks"
 
 function displayTask(tasks) {
-  const container = document.createDocumentFragment(); // use fragment for performance
+  const container = document.createDocumentFragment();
 
   tasks.forEach((task, index) => {
     const task_container = document.createElement("div");
@@ -85,5 +86,8 @@ export default function DisplayProject(data) {
   project_container.appendChild(project_title);
   project_container.appendChild(proj_list_container);
   project_container.appendChild(add_task_container);
+
+  console.log(getTaskByProject(data.id))
+
   return project_container;
 }
