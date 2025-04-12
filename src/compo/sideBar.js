@@ -16,6 +16,7 @@ export function sidebarNavLink(navText, navImage) {
   links_container.setAttribute("class", "links__container");
   nav_img.setAttribute("class", "nav__icon");
   link_text.setAttribute("class", "link__text");
+  links.setAttribute("data-target-page", navText)
 
   nav_img.src = navImage;
   nav_img.alt = "nav icon";

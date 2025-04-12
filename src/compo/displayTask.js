@@ -55,6 +55,7 @@ function displayTask(tasks) {
 }
 
 export default function DisplayProject(data) {
+  console.log("project data: ", data)
   const project_container = document.createElement("div");
   const proj_list_container = document.createElement("div");
   const lower_container = document.createElement("div");
@@ -87,6 +88,26 @@ export default function DisplayProject(data) {
   project_container.appendChild(project_title);
   project_container.appendChild(proj_list_container);
   project_container.appendChild(add_task_container);
+
+  return project_container;
+}
+
+export function displayAllTask(taskData) {
+  const project_container = document.createElement("div");
+  const proj_list_container = document.createElement("div");
+  const lower_container = document.createElement("div");
+  const page_title = document.createElement("h1");
+  
+  project_container.setAttribute("class", "display__project-container");
+  proj_list_container.setAttribute("class", "display__project-list");
+  lower_container.setAttribute("class", "lower__container");
+  page_title.setAttribute("class", "page__title");
+  
+  page_title.textContent = "All";
+  
+  proj_list_container.appendChild(displayTask(filterTaskDataNotCompleted(taskData)));
+  project_container.appendChild(page_title);
+  project_container.appendChild(proj_list_container);
 
   return project_container;
 }

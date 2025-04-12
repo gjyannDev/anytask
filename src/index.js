@@ -18,8 +18,10 @@ import {
   getTaskById,
   updateTask,
   deleteTask,
+  getAllTask,
 } from "./compo/tasks";
-import DisplayProject from "./compo/displayProject";
+import DisplayProject from "./compo/displayTask";
+import { displayAllTask } from "./compo/displayTask";
 
 import { v4 as uuidv4 } from "uuid";
 
@@ -90,6 +92,7 @@ document.querySelectorAll("[data-add-target]").forEach((btn) => {
 
       let projectId = uuidv4();
 
+      //TODO: Separate this fordata and data because it's redundant just create a function for this
       const formData = new FormData(project_form);
       const data = Object.fromEntries(formData.entries());
 
@@ -127,7 +130,7 @@ document.querySelectorAll("[data-add-target]").forEach((btn) => {
     } else if (modal === "edit") {
       e.preventDefault();
 
-      let task_details = getTaskById(current_project_id, task_id);
+      let task_details = getTaskById(task_id);
       const formData = new FormData(edit_form);
       const data = Object.fromEntries(formData.entries());
 
@@ -158,10 +161,8 @@ Array.from(project_list.children).forEach((project) => {
   project.addEventListener("click", (e) => {
     const project_id = e.currentTarget.getAttribute("data-id");
     const project = getProjectById(project_id);
-
+    
     current_project_id = project_id;
-
-    console.log("project: ", project)
 
     contents_container.replaceChildren(DisplayProject(project));
   });
@@ -175,12 +176,13 @@ document.addEventListener("click", (e) => {
 
   if (task_container && task_container.hasAttribute("data-task-id")) {
     task_id = task_container.getAttribute("data-task-id");
-    task = getTaskById(current_project_id, task_id);
+    task = getTaskById(task_id);
 
+    //TODO: Refactor this make sure to separate the functionality of this
     if (task_checkbox && task_checkbox.checked) {
       is_completed = true;
 
-      let task_details = getTaskById(current_project_id, task_id);
+      let task_details = getTaskById(task_id);
 
       task_details.is_completed = is_completed;
 
@@ -207,3 +209,18 @@ document.addEventListener("click", (e) => {
     dialog_container_del.classList.remove("hidden");
   }
 });
+
+//This trigger what page is click
+document.querySelectorAll("[data-target-page]").forEach((page) => {
+  page.addEventListener("click", (e) => {
+    const page = e.currentTarget.getAttribute("data-target-page")
+
+    //TODO: Process data for each page make sure that the task data are appropriate for that page
+    
+    if (page === "All") {
+      const allTask = getAllTask(getProject())
+
+      contents_container.replaceChildren(displayAllTask(allTask))
+    }
+  })
+})
