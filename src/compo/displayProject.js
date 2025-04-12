@@ -1,7 +1,7 @@
 import addTaskIcon from "/src/assets/icons/plus.svg";
 import delTaskIcon from "/src/assets/icons/bx-trash.svg";
 import editTaskIcon from "/src/assets/icons/bx-edit.svg"; 
-import {getTaskByProject} from "./tasks"
+import {getTaskByProject, filterTaskDataNotCompleted} from "./tasks"
 
 function displayTask(tasks) {
   const container = document.createDocumentFragment();
@@ -83,7 +83,7 @@ export default function DisplayProject(data) {
   add_task_btn.appendChild(add_task_icon);
   add_task_btn.appendChild(add_task_text);
   add_task_container.appendChild(add_task_btn);
-  proj_list_container.appendChild(displayTask(data.tasks));
+  proj_list_container.appendChild(displayTask(filterTaskDataNotCompleted(data.tasks)));
   project_container.appendChild(project_title);
   project_container.appendChild(proj_list_container);
   project_container.appendChild(add_task_container);

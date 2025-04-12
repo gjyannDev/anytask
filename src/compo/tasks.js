@@ -54,3 +54,12 @@ export function deleteTask(taskId, projectId) {
 
   storeProject(allProjects)
 }
+
+export function filterTaskDataNotCompleted(tasks) {
+  return tasks.filter((task) => task.is_completed === false)
+}
+
+export function filterTaskDataCompleted(tasks) {
+  return tasks.filter((task) => task.is_completed === true)
+}
+

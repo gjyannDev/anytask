@@ -39,7 +39,3 @@ export function getProject() {
 export function getProjectById(projectId) {
   return getProject().find((p) => p.id === projectId);
 }
-
-export function deleteProject() {
-  
-}

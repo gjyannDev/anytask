@@ -161,6 +161,8 @@ Array.from(project_list.children).forEach((project) => {
 
     current_project_id = project_id;
 
+    console.log("project: ", project)
+
     contents_container.replaceChildren(DisplayProject(project));
   });
 });
