@@ -43,16 +43,19 @@ export function updateTask(updatedTask) {
   storeProject(allProjects);
 }
 
-export function deleteTask(taskId, projectId) {
+export function deleteTask(taskId) {
   const allProjects = getProject();
-  const index = allProjects.findIndex((p) => p.id === projectId);
-  let filterTask = undefined;
 
-  allProjects.forEach((project) => {
-    filterTask = project.tasks.filter((el) => el.id !== taskId);
-  });
+  const project = allProjects.find((p) => p.tasks.some((task) => task.id === taskId));
 
-  allProjects[index].removeTask(filterTask);
+  if (!project) {
+    console.error(`Task with ID ${taskId} not found in any project`);
+    return;
+  }
+
+  const updatedTasks = project.tasks.filter((task) => task.id !== taskId);
+
+  project.removeTask(updatedTasks);
 
   storeProject(allProjects);
 }
