@@ -21,7 +21,7 @@ import {
   getAllTask,
 } from "./compo/tasks";
 import DisplayProject from "./compo/displayTask";
-import { displayAllTask } from "./compo/displayTask";
+import { displayAllTask, displayCompletedTask } from "./compo/displayTask";
 
 import { v4 as uuidv4 } from "uuid";
 
@@ -221,6 +221,14 @@ document.querySelectorAll("[data-target-page]").forEach((page) => {
       const allTask = getAllTask(getProject())
 
       contents_container.replaceChildren(displayAllTask(allTask))
+    } else if (page === "Today") {
+
+    } else if (page === "Weekly") {
+
+    } else if (page === "Completed") {
+      const allTask = getAllTask(getProject())
+
+      contents_container.replaceChildren(displayCompletedTask(allTask))
     }
   })
 })

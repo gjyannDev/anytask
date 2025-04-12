@@ -1,9 +1,13 @@
 import addTaskIcon from "/src/assets/icons/plus.svg";
 import delTaskIcon from "/src/assets/icons/bx-trash.svg";
-import editTaskIcon from "/src/assets/icons/bx-edit.svg"; 
-import {getTaskByProject, filterTaskDataNotCompleted} from "./tasks"
+import editTaskIcon from "/src/assets/icons/bx-edit.svg";
+import {
+  getTaskByProject,
+  filterTaskDataNotCompleted,
+  filterTaskDataCompleted,
+} from "./tasks";
 
-function displayTask(tasks) {
+function displayTask(tasks, completed) {
   const container = document.createDocumentFragment();
 
   tasks.forEach((task, index) => {
@@ -42,7 +46,7 @@ function displayTask(tasks) {
 
     text_contents.appendChild(task_name);
     text_contents.appendChild(task_description);
-    left_contents.appendChild(checkbox);
+    (completed !== true) && left_contents.appendChild(checkbox);
     left_contents.appendChild(text_contents);
     right_contents.appendChild(edit_btn);
     right_contents.appendChild(del_btn);
@@ -50,12 +54,12 @@ function displayTask(tasks) {
     task_container.appendChild(right_contents);
 
     container.appendChild(task_container);
-  })
+  });
   return container;
 }
 
 export default function DisplayProject(data) {
-  console.log("project data: ", data)
+  console.log("project data: ", data);
   const project_container = document.createElement("div");
   const proj_list_container = document.createElement("div");
   const lower_container = document.createElement("div");
@@ -84,7 +88,9 @@ export default function DisplayProject(data) {
   add_task_btn.appendChild(add_task_icon);
   add_task_btn.appendChild(add_task_text);
   add_task_container.appendChild(add_task_btn);
-  proj_list_container.appendChild(displayTask(filterTaskDataNotCompleted(data.tasks)));
+  proj_list_container.appendChild(
+    displayTask(filterTaskDataNotCompleted(data.tasks), false)
+  );
   project_container.appendChild(project_title);
   project_container.appendChild(proj_list_container);
   project_container.appendChild(add_task_container);
@@ -97,15 +103,39 @@ export function displayAllTask(taskData) {
   const proj_list_container = document.createElement("div");
   const lower_container = document.createElement("div");
   const page_title = document.createElement("h1");
-  
+
   project_container.setAttribute("class", "display__project-container");
   proj_list_container.setAttribute("class", "display__project-list");
   lower_container.setAttribute("class", "lower__container");
   page_title.setAttribute("class", "page__title");
-  
+
   page_title.textContent = "All";
-  
-  proj_list_container.appendChild(displayTask(filterTaskDataNotCompleted(taskData)));
+
+  proj_list_container.appendChild(
+    displayTask(filterTaskDataNotCompleted(taskData), false)
+  );
+  project_container.appendChild(page_title);
+  project_container.appendChild(proj_list_container);
+
+  return project_container;
+}
+
+export function displayCompletedTask(taskData) {
+  const project_container = document.createElement("div");
+  const proj_list_container = document.createElement("div");
+  const lower_container = document.createElement("div");
+  const page_title = document.createElement("h1");
+
+  project_container.setAttribute("class", "display__project-container");
+  proj_list_container.setAttribute("class", "display__project-list");
+  lower_container.setAttribute("class", "lower__container");
+  page_title.setAttribute("class", "page__title");
+
+  page_title.textContent = "Completed";
+
+  proj_list_container.appendChild(
+    displayTask(filterTaskDataCompleted(taskData), true)
+  );
   project_container.appendChild(page_title);
   project_container.appendChild(proj_list_container);
 

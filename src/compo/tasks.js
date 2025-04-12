@@ -74,3 +74,7 @@ export function getAllTask(allProjects) {
     return acc
   }, [])
 }
+
+export function getCompleteTask(allTask) {
+  return allTask
+}
