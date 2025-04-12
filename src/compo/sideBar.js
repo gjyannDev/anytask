@@ -2,9 +2,7 @@ import allIcon from "/src/assets/icons/bx-border-all.svg";
 import todayIcon from "/src/assets/icons/bx-calendar.svg";
 import weeklyIcon from "/src/assets/icons/bx-calendar-week.svg";
 import completedIcon from "/src/assets/icons/bx-check-square.svg";
-import trashIcon from "/src/assets/icons/bx-trash.svg";
 import projectIcon from "/src/assets/icons/circle.svg";
-
 import { getProject } from "./project";
 
 export function sidebarNavLink(navText, navImage) {
@@ -83,7 +81,6 @@ export default function SideBar() {
   nav_links_middle.appendChild(sidebarNavLink("Today", todayIcon));
   nav_links_middle.appendChild(sidebarNavLink("Weekly", weeklyIcon));
   nav_links_middle.appendChild(sidebarNavLink("Completed", completedIcon));
-  nav_links_middle.appendChild(sidebarNavLink("Trash", trashIcon));
   middle_container.appendChild(nav_links_middle);
   disProjSidebar();
   side_bar_container.appendChild(upper_container);
