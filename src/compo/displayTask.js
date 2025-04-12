@@ -5,6 +5,8 @@ import {
   getTaskByProject,
   filterTaskDataNotCompleted,
   filterTaskDataCompleted,
+  filterTodayTask,
+  filterWeeklyTask
 } from "./tasks";
 
 function displayTask(tasks, completed) {
@@ -141,3 +143,49 @@ export function displayCompletedTask(taskData) {
 
   return project_container;
 }
+
+export function displayTodayTask(taskData) {
+  const project_container = document.createElement("div");
+  const proj_list_container = document.createElement("div");
+  const lower_container = document.createElement("div");
+  const page_title = document.createElement("h1");
+
+  project_container.setAttribute("class", "display__project-container");
+  proj_list_container.setAttribute("class", "display__project-list");
+  lower_container.setAttribute("class", "lower__container");
+  page_title.setAttribute("class", "page__title");
+
+  page_title.textContent = "Today";
+
+  proj_list_container.appendChild(
+    displayTask(filterTodayTask(filterTaskDataNotCompleted(taskData)), false)
+  );
+  project_container.appendChild(page_title);
+  project_container.appendChild(proj_list_container);
+
+  return project_container;
+}
+
+export function displayWeeklyTask(taskData) {
+  const project_container = document.createElement("div");
+  const proj_list_container = document.createElement("div");
+  const lower_container = document.createElement("div");
+  const page_title = document.createElement("h1");
+
+  project_container.setAttribute("class", "display__project-container");
+  proj_list_container.setAttribute("class", "display__project-list");
+  lower_container.setAttribute("class", "lower__container");
+  page_title.setAttribute("class", "page__title");
+
+  page_title.textContent = "Weekly";
+
+  proj_list_container.appendChild(
+    displayTask(filterWeeklyTask(filterTaskDataNotCompleted(taskData)), false)
+  );
+  project_container.appendChild(page_title);
+  project_container.appendChild(proj_list_container);
+
+  return project_container;
+}
+
+

@@ -75,6 +75,30 @@ export function getAllTask(allProjects) {
   }, [])
 }
 
-export function getCompleteTask(allTask) {
-  return allTask
+export function filterTodayTask(tasks) {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const day = String(now.getDate()).padStart(2, '0');
+
+  const today = `${year}-${month}-${day}`;
+
+  return tasks.filter((task) => task.date === today)
+}
+
+export function filterWeeklyTask(tasks) {
+  const now = new Date();
+
+  const startOfWeek = new Date(now);
+  startOfWeek.setDate(now.getDate() - now.getDay() + 1); 
+  startOfWeek.setHours(0, 0, 0, 0);
+
+  const endOfWeek = new Date(startOfWeek);
+  endOfWeek.setDate(startOfWeek.getDate() + 6);
+  endOfWeek.setHours(23, 59, 59, 999);
+
+  return tasks.filter(task => {
+    const taskDate = new Date(task.date);
+    return taskDate >= startOfWeek && taskDate <= endOfWeek;
+  });
 }

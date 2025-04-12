@@ -21,7 +21,12 @@ import {
   getAllTask,
 } from "./compo/tasks";
 import DisplayProject from "./compo/displayTask";
-import { displayAllTask, displayCompletedTask } from "./compo/displayTask";
+import {
+  displayAllTask,
+  displayCompletedTask,
+  displayTodayTask,
+  displayWeeklyTask
+} from "./compo/displayTask";
 
 import { v4 as uuidv4 } from "uuid";
 
@@ -161,7 +166,7 @@ Array.from(project_list.children).forEach((project) => {
   project.addEventListener("click", (e) => {
     const project_id = e.currentTarget.getAttribute("data-id");
     const project = getProjectById(project_id);
-    
+
     current_project_id = project_id;
 
     contents_container.replaceChildren(DisplayProject(project));
@@ -213,22 +218,19 @@ document.addEventListener("click", (e) => {
 //This trigger what page is click
 document.querySelectorAll("[data-target-page]").forEach((page) => {
   page.addEventListener("click", (e) => {
-    const page = e.currentTarget.getAttribute("data-target-page")
+    const page = e.currentTarget.getAttribute("data-target-page");
+    const allTask = getAllTask(getProject());
 
     //TODO: Process data for each page make sure that the task data are appropriate for that page
-    
+
     if (page === "All") {
-      const allTask = getAllTask(getProject())
-
-      contents_container.replaceChildren(displayAllTask(allTask))
+      contents_container.replaceChildren(displayAllTask(allTask));
     } else if (page === "Today") {
-
+      contents_container.replaceChildren(displayTodayTask(allTask));
     } else if (page === "Weekly") {
-
+      contents_container.replaceChildren(displayWeeklyTask(allTask));
     } else if (page === "Completed") {
-      const allTask = getAllTask(getProject())
-
-      contents_container.replaceChildren(displayCompletedTask(allTask))
+      contents_container.replaceChildren(displayCompletedTask(allTask));
     }
-  })
-})
+  });
+});
