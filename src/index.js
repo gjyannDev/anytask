@@ -15,7 +15,6 @@ import {
 } from "./compo/project";
 import {
   createTask,
-  getTaskByProject,
   getTaskById,
   updateTask,
   deleteTask,
@@ -23,7 +22,6 @@ import {
 } from "./compo/tasks";
 import DisplayProject from "./compo/displayTask";
 import {
-  renderProjects,
   renderSidebarProjects,
   renderPages,
 } from "./compo/render";

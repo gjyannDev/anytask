@@ -1,12 +1,7 @@
 import { getProjectById } from "./project";
 import DisplayProject from "./displayTask";
 import { disProjSidebar } from "./sideBar";
-import {
-  displayAllTask,
-  displayTodayTask,
-  displayWeeklyTask,
-  displayCompletedTask,
-} from "./displayTask";
+import { displayPages } from "./displayTask";
 import { getAllTask } from "./tasks";
 import { getProject } from "./project";
 
@@ -18,13 +13,13 @@ export function renderProjects(projectId, container) {
 
 export function renderPages(tasks, container, page) {
   if (page === "All") {
-    container.replaceChildren(displayAllTask(tasks));
+    container.replaceChildren(displayPages(tasks, page));
   } else if (page === "Today") {
-    container.replaceChildren(displayTodayTask(tasks));
+    container.replaceChildren(displayPages(tasks, page));
   } else if (page === "Weekly") {
-    container.replaceChildren(displayWeeklyTask(tasks));
+    container.replaceChildren(displayPages(tasks, page));
   } else if (page === "Completed") {
-    container.replaceChildren(displayCompletedTask(tasks));
+    container.replaceChildren(displayPages(tasks, page));
   } else {
     console.error(`Unknown page: ${page}`);
   }
@@ -36,7 +31,11 @@ export function renderSidebarProjects(container) {
   disProjSidebar();
 }
 
-export default function Render(currentPage, currentProjectId, contentsContainer) {
+export default function Render(
+  currentPage,
+  currentProjectId,
+  contentsContainer
+) {
   return currentPage === "Project"
     ? renderProjects(currentProjectId, contentsContainer)
     : renderPages(getAllTask(getProject()), contentsContainer, currentPage);
