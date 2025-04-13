@@ -4,7 +4,7 @@ import weeklyIcon from "/src/assets/icons/bx-calendar-week.svg";
 import completedIcon from "/src/assets/icons/bx-check-square.svg";
 import projectIcon from "/src/assets/icons/circle.svg";
 import { getProject } from "./project";
-
+  
 export function sidebarNavLink(navText, navImage) {
   const links = document.createElement("li");
   const links_container = document.createElement("div");
@@ -30,7 +30,7 @@ export function sidebarNavLink(navText, navImage) {
   return links;
 }
 
-function disProjSidebar() {
+export function disProjSidebar() {
   const project_list_container = document.querySelector(".project__list");
   const projects = getProject();
 

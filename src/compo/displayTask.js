@@ -9,7 +9,9 @@ import {
   filterWeeklyTask
 } from "./tasks";
 
-function displayTask(tasks, completed) {
+//TODO: Refactor code and make them much more reusable
+
+export function displayTask(tasks, completed) {
   const container = document.createDocumentFragment();
 
   tasks.forEach((task, index) => {
@@ -61,7 +63,6 @@ function displayTask(tasks, completed) {
 }
 
 export default function DisplayProject(data) {
-  console.log("project data: ", data);
   const project_container = document.createElement("div");
   const proj_list_container = document.createElement("div");
   const lower_container = document.createElement("div");

@@ -25,8 +25,9 @@ import {
   displayAllTask,
   displayCompletedTask,
   displayTodayTask,
-  displayWeeklyTask
+  displayWeeklyTask,
 } from "./compo/displayTask";
+import { renderProjects, renderSidebarProjects } from "./compo/render";
 
 import { v4 as uuidv4 } from "uuid";
 
@@ -50,9 +51,12 @@ let dialog_container_del = document.querySelector(".dialog__container-del");
 let current_project_id = "";
 let task_id = "";
 let is_completed = false;
+const   allTask = getAllTask(getProject());
 
 //This insert the sidebar before the project contents in the sidebar
 side_bar.insertBefore(SideBar(), side_bar_lower);
+//Default page
+contents_container.replaceChildren(displayTodayTask(allTask));
 
 //Open add project modal
 add_project_btn.addEventListener("click", () => {
@@ -97,7 +101,7 @@ document.querySelectorAll("[data-add-target]").forEach((btn) => {
 
       let projectId = uuidv4();
 
-      //TODO: Separate this fordata and data because it's redundant just create a function for this
+      //TODO: Separate this for data and data because it's redundant just create a function for this
       const formData = new FormData(project_form);
       const data = Object.fromEntries(formData.entries());
 
@@ -109,7 +113,7 @@ document.querySelectorAll("[data-add-target]").forEach((btn) => {
 
       storeProject(currentProjects);
 
-      window.location.reload();
+      renderSidebarProjects(project_list);
 
       hideModal("dialog__container-project");
     } else if (modal === "task") {
@@ -129,7 +133,7 @@ document.querySelectorAll("[data-add-target]").forEach((btn) => {
 
       createTask(current_project_id, tasks);
 
-      window.location.reload();
+      renderProjects(current_project_id, contents_container);
 
       hideModal("dialog__container-task");
     } else if (modal === "edit") {
@@ -146,7 +150,7 @@ document.querySelectorAll("[data-add-target]").forEach((btn) => {
 
       updateTask(task_details);
 
-      window.location.reload();
+      renderProjects(current_project_id, contents_container);
 
       hideModal("dialog__container-edit");
     } else if (modal === "delete_task") {
@@ -154,7 +158,7 @@ document.querySelectorAll("[data-add-target]").forEach((btn) => {
 
       deleteTask(task_id, current_project_id);
 
-      window.location.reload();
+      renderProjects(current_project_id, contents_container);
 
       hideModal("dialog__container-del");
     }
@@ -219,9 +223,6 @@ document.addEventListener("click", (e) => {
 document.querySelectorAll("[data-target-page]").forEach((page) => {
   page.addEventListener("click", (e) => {
     const page = e.currentTarget.getAttribute("data-target-page");
-    const allTask = getAllTask(getProject());
-
-    //TODO: Process data for each page make sure that the task data are appropriate for that page
 
     if (page === "All") {
       contents_container.replaceChildren(displayAllTask(allTask));
