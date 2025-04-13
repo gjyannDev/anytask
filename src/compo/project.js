@@ -39,3 +39,10 @@ export function getProject() {
 export function getProjectById(projectId) {
   return getProject().find((p) => p.id === projectId);
 }
+
+export function getFormData(formContainer) {
+  const formData = new FormData(formContainer);
+  const data = Object.fromEntries(formData.entries());
+
+  return data
+}

@@ -11,6 +11,7 @@ import {
   storeProject,
   getProject,
   getProjectById,
+  getFormData,
 } from "./compo/project";
 import {
   createTask,
@@ -22,20 +23,13 @@ import {
 } from "./compo/tasks";
 import DisplayProject from "./compo/displayTask";
 import {
-  displayAllTask,
-  displayCompletedTask,
-  displayTodayTask,
-  displayWeeklyTask,
-} from "./compo/displayTask";
-import {
   renderProjects,
   renderSidebarProjects,
   renderPages,
 } from "./compo/render";
-
+import Render from "./compo/render";
 import { v4 as uuidv4 } from "uuid";
 
-let main_container = document.querySelector(".main__container");
 let contents_container = document.querySelector(".contents__container");
 let side_bar = document.querySelector("#side__bar");
 let side_bar_lower = document.querySelector(".side__bar-lower");
@@ -106,9 +100,7 @@ document.querySelectorAll("[data-add-target]").forEach((btn) => {
 
       let projectId = uuidv4();
 
-      //TODO: Separate this for data and data because it's redundant just create a function for this
-      const formData = new FormData(project_form);
-      const data = Object.fromEntries(formData.entries());
+      const data = getFormData(project_form);
 
       const currentProjects = getProject();
 
@@ -126,8 +118,7 @@ document.querySelectorAll("[data-add-target]").forEach((btn) => {
 
       let taskId = uuidv4();
 
-      const formData = new FormData(task_form);
-      const data = Object.fromEntries(formData.entries());
+      const data = getFormData(task_form);
 
       const tasks = {
         id: taskId,
@@ -138,17 +129,14 @@ document.querySelectorAll("[data-add-target]").forEach((btn) => {
 
       createTask(current_project_id, tasks);
 
-      current_page === "Project"
-        ? renderProjects(current_project_id, contents_container)
-        : renderPages(getAllTask(getProject()), contents_container, current_page);
+      Render(current_page, current_project_id, contents_container);
 
       hideModal("dialog__container-task");
     } else if (modal === "edit") {
       e.preventDefault();
 
       let task_details = getTaskById(task_id);
-      const formData = new FormData(edit_form);
-      const data = Object.fromEntries(formData.entries());
+      const data = getFormData(edit_form);
 
       task_details.title = data.title;
       task_details.description = data.description;
@@ -157,9 +145,7 @@ document.querySelectorAll("[data-add-target]").forEach((btn) => {
 
       updateTask(task_details);
 
-      current_page === "Project"
-        ? renderProjects(current_project_id, contents_container)
-        : renderPages(getAllTask(getProject()), contents_container, current_page);
+      Render(current_page, current_project_id, contents_container);
 
       hideModal("dialog__container-edit");
     } else if (modal === "delete_task") {
@@ -167,9 +153,7 @@ document.querySelectorAll("[data-add-target]").forEach((btn) => {
 
       deleteTask(task_id, current_project_id);
 
-      current_page === "Project"
-        ? renderProjects(current_project_id, contents_container)
-        : renderPages(getAllTask(getProject()), contents_container, current_page);
+      Render(current_page, current_project_id, contents_container);
 
       hideModal("dialog__container-del");
     }
@@ -199,7 +183,6 @@ document.addEventListener("click", (e) => {
     task_id = task_container.getAttribute("data-task-id");
     task = getTaskById(task_id);
 
-    //TODO: Refactor this make sure to separate the functionality of this
     if (task_checkbox && task_checkbox.checked) {
       is_completed = true;
 
@@ -209,7 +192,7 @@ document.addEventListener("click", (e) => {
 
       updateTask(task_details);
 
-      window.location.reload();
+      Render(current_page, current_project_id, contents_container);
     }
   }
 
