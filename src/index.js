@@ -27,7 +27,11 @@ import {
   displayTodayTask,
   displayWeeklyTask,
 } from "./compo/displayTask";
-import { renderProjects, renderSidebarProjects } from "./compo/render";
+import {
+  renderProjects,
+  renderSidebarProjects,
+  renderPages,
+} from "./compo/render";
 
 import { v4 as uuidv4 } from "uuid";
 
@@ -51,12 +55,13 @@ let dialog_container_del = document.querySelector(".dialog__container-del");
 let current_project_id = "";
 let task_id = "";
 let is_completed = false;
-const   allTask = getAllTask(getProject());
+const allTask = getAllTask(getProject());
+let current_page = "Today";
 
 //This insert the sidebar before the project contents in the sidebar
 side_bar.insertBefore(SideBar(), side_bar_lower);
 //Default page
-contents_container.replaceChildren(displayTodayTask(allTask));
+renderPages(allTask, contents_container, current_page);
 
 //Open add project modal
 add_project_btn.addEventListener("click", () => {
@@ -133,7 +138,9 @@ document.querySelectorAll("[data-add-target]").forEach((btn) => {
 
       createTask(current_project_id, tasks);
 
-      renderProjects(current_project_id, contents_container);
+      current_page === "Project"
+        ? renderProjects(current_project_id, contents_container)
+        : renderPages(getAllTask(getProject()), contents_container, current_page);
 
       hideModal("dialog__container-task");
     } else if (modal === "edit") {
@@ -150,7 +157,9 @@ document.querySelectorAll("[data-add-target]").forEach((btn) => {
 
       updateTask(task_details);
 
-      renderProjects(current_project_id, contents_container);
+      current_page === "Project"
+        ? renderProjects(current_project_id, contents_container)
+        : renderPages(getAllTask(getProject()), contents_container, current_page);
 
       hideModal("dialog__container-edit");
     } else if (modal === "delete_task") {
@@ -158,7 +167,9 @@ document.querySelectorAll("[data-add-target]").forEach((btn) => {
 
       deleteTask(task_id, current_project_id);
 
-      renderProjects(current_project_id, contents_container);
+      current_page === "Project"
+        ? renderProjects(current_project_id, contents_container)
+        : renderPages(getAllTask(getProject()), contents_container, current_page);
 
       hideModal("dialog__container-del");
     }
@@ -172,6 +183,7 @@ Array.from(project_list.children).forEach((project) => {
     const project = getProjectById(project_id);
 
     current_project_id = project_id;
+    current_page = "Project";
 
     contents_container.replaceChildren(DisplayProject(project));
   });
@@ -222,16 +234,7 @@ document.addEventListener("click", (e) => {
 //This trigger what page is click
 document.querySelectorAll("[data-target-page]").forEach((page) => {
   page.addEventListener("click", (e) => {
-    const page = e.currentTarget.getAttribute("data-target-page");
-
-    if (page === "All") {
-      contents_container.replaceChildren(displayAllTask(allTask));
-    } else if (page === "Today") {
-      contents_container.replaceChildren(displayTodayTask(allTask));
-    } else if (page === "Weekly") {
-      contents_container.replaceChildren(displayWeeklyTask(allTask));
-    } else if (page === "Completed") {
-      contents_container.replaceChildren(displayCompletedTask(allTask));
-    }
+    current_page = e.currentTarget.getAttribute("data-target-page");
+    renderPages(getAllTask(getProject()), contents_container, current_page);
   });
 });

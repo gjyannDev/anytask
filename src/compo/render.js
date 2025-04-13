@@ -14,7 +14,7 @@ export function renderProjects(projectId, container) {
   container.replaceChildren(DisplayProject(project));
 }
 
-export function renderPages(page, tasks, container) {
+export function renderPages(tasks, container, page) {
   if (page === "All") {
     container.replaceChildren(displayAllTask(tasks));
   } else if (page === "Today") {
@@ -23,6 +23,8 @@ export function renderPages(page, tasks, container) {
     container.replaceChildren(displayWeeklyTask(tasks));
   } else if (page === "Completed") {
     container.replaceChildren(displayCompletedTask(tasks));
+  } else {
+    console.error(`Unknown page: ${page}`);
   }
 }
 
